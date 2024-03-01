@@ -86,7 +86,7 @@ function makeCards() {
         card.className= "card"
         card.id = "flip" + [i];
         card.innerHTML = `<div class="card-face card-front" onClick = "getValue('picture${i}')">
-        <h1>Front</h1>
+        <h1><img src="./logo.png" style="width: 50%; height:50%"></h1>
       </div>
       <div class="card-face card-back">
         <h1 id = "picture${i}">${dupSigns[i]}</h1>
