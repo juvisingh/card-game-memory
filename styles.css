@@ -8,8 +8,8 @@
   }
 
 .card {
-  width: 200px;
-  height: 125px;
+  width: 190px;
+  height: 120px;
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.5s;
@@ -28,7 +28,7 @@
 
 .card-front {
   justify-items: center;
-  background-color: #98c0b4;
+  background-color: #D6B899;
   color: black;
   z-index: 2;
   border: black;
@@ -36,7 +36,7 @@
 }
 
 .card-back {
-  background-color: #333;
+  background-color: #B6BAC1;
   color: white;
   transform: rotateY(180deg);
   border-radius: 5px;
@@ -45,12 +45,13 @@
   transition: none;
   transform: rotateY(180deg);
   }
-h1 {
+div > h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 50px;
+  align-content: center;
+  justify-items: center;
 }
 html {
-  background-color: #764D28;
+  background-color: black;
 }

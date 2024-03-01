@@ -61,6 +61,7 @@ window.onload = function() {
     var card30 = document.getElementById('flip29');
     checkCards(card30)
   };
+setInterval(getTime,1000)
 function checkCards(num) {
     num.addEventListener('click', function() {
         num.classList.toggle('flipped');
@@ -75,6 +76,7 @@ var firstCard;
 var secondCard;
 var firstId;
 var secondId;
+var pairsFound = 0;
 var time = 0;
 var signs = ["😊","😂","🤣","😍","😉","😎","😢","😁","🥰","😘","🤩","😮","😴","😜","😕"]
 
@@ -123,5 +125,41 @@ function findPairs() {
         secondId = "";
         firstCard = "";
         secondCard = "";
+        pairsFound++
+        console.log(pairsFound)
     }
+}
+var seconds = 0;
+var minutes = 0;
+function getTime() {
+  seconds++;
+  if (seconds == 60) {
+      seconds = 0;
+      minutes++;
+  }
+  var finalTime = minutes + ':' + (seconds < 10 ? '0' : '')  + seconds;
+  document.getElementById('countUp').innerHTML = finalTime;
+}
+if(pairsFound == 15) {
+  document.getElementById('title').innerHTML = "You Won! Congrats!"
+}
+function reset() {
+  seconds = 0;
+  minutes = 0;
+  numCount = 0;
+  numClicked = 1;
+  firstCard = "";
+  secondCard = "";
+  firstId = "";
+  secondId = "";
+  pairsFound = 0;
+  time = 0;
+  document.getElementById('title').innerHTML = "Card Memory Game"
+  document.getElementById("score").innerHTML = "Score: In Progress..."
+  document.getElementById("move").innerHTML = "Moves: 0"
+  document.getElementById("countUp").innerHTML = "Time:"
+  // for (var i = 0; i < 30; i ++) {
+  //   var numToChange = document.getElementById("flip${i}")
+  //   numToChange.classList.toggle('flipped');
+  // }
 }
