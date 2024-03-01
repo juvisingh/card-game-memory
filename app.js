@@ -99,11 +99,15 @@ function getValue(num) {
         firstCard = document.getElementById(num).innerHTML;
         firstId = document.getElementById(num).id
         numClicked++;
+        numCount++;
+        document.getElementById('move').innerHTML = "Moves: " + numCount;
     }
     else if (numClicked == 2) {
         secondCard = document.getElementById(num).innerHTML;
         numClicked = 1;
         secondId = document.getElementById(num).id
+        numCount++
+        document.getElementById('move').innerHTML = "Moves: " + numCount
         findPairs()
     }
 }
@@ -111,8 +115,6 @@ function findPairs() {
     console.log(firstCard)
     console.log(secondCard)
     if (firstCard == secondCard) {
-        numCount++;
-        document.getElementById("score").innerHTML = "Score: " + numCount;
         // var toChange = document.getElementById(firstId);
         // toChange.classList.toggle('paused');
         var cardElement = document.querySelector('.card.flipped');
