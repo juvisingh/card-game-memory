@@ -157,7 +157,7 @@ function reset() {
   document.getElementById('title').innerHTML = "Card Memory Game"
   document.getElementById("score").innerHTML = "Score: In Progress..."
   document.getElementById("move").innerHTML = "Moves: 0"
-  document.getElementById("countUp").innerHTML = "Time:"
+  document.getElementById("countUp").innerHTML = "0:00"
   // for (var i = 0; i < 30; i ++) {
   //   var numToChange = document.getElementById("flip${i}")
   //   numToChange.classList.toggle('flipped');
