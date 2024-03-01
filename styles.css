@@ -27,6 +27,9 @@
   }
 
   .card-front {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #f1f1f1;
     color: black;
     z-index: 2;

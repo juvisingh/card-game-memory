@@ -122,5 +122,4 @@ function findPairs() {
         firstCard = "";
         secondCard = "";
     }
-
 }
