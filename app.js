@@ -77,7 +77,7 @@ function flipOrNot(value) {
     value.classList.toggle('flipped');
     timeOut = setTimeout(function() {
       value.classList.remove('flipped');
-    }, 5000); // 5000 milliseconds = 5 seconds
+    }, 7000); // 5000 milliseconds = 5 seconds
 })
 }
 var numCount = 0;
@@ -97,7 +97,7 @@ function makeCards() {
         var card = document.createElement('div');
         card.className= "card"
         card.id = "flip" + [i];
-        card.innerHTML = `<div class="card-face card-front" onClick = "getValue('picture${i}')">
+        card.innerHTML = `<div class="card-face card-front" id='flippp${i}' onClick = "getValue('picture${i}')">
         <h1 id='flipp${i}'><img src="./logo.png" style="width: 50%; height:50%"></h1>
       </div>
       <div class="card-face card-back">
@@ -123,35 +123,37 @@ function getValue(num) {
         findPairs()
     }
 }
-function findPairs() {
-    console.log(firstCard)
-    console.log(secondCard)
-    if (firstCard == secondCard) {
-        // var toChange = document.getElementById(firstId);
-        // toChange.classList.toggle('paused');
-        firstId = firstId.replace("picture", "flipp")
-        // console.log(firstId)
-        secondId = secondId.replace("picture", "flipp")
-        // var cardElement2 = document.getElementById(secondId)
-        // console.log(sec)
-        // cardElement2.classList.remove = 'card-back';
-        // cardElement2.classList.add = "card-front";
-        document.getElementById(firstId).innerHTML = firstCard
-        document.getElementById(secondId).innerHTML = secondCard
-        document.getElementById(firstId).style.backgroundColor = "#B6BAC1"
-        document.getElementById(secondId).style.backgroundColor = "#B6BAC1"
-        firstId = firstId.replace("picture", "flip")
-        secondId = secondId.replace("picture", "flip")
-        document.getElementById(firstId).style.backgroundColor = "#B6BAC1"
-        document.getElementById(secondId).style.backgroundColor = "#B6BAC1"
-        firstId = "";
-        secondId = "";
-        firstCard = "";
-        secondCard = "";
-        pairsFound++
-        console.log(pairsFound)
-    }
+function changeSides(){
+  firstId = firstId.replace("picture", "flipp")
+  secondId = secondId.replace("picture", "flipp")
+  document.getElementById(firstId).innerHTML = firstCard
+  document.getElementById(secondId).innerHTML = secondCard
+  document.getElementById(firstId).style.backgroundColor = "#B6BAC1"
+  document.getElementById(secondId).style.backgroundColor = "#B6BAC1"
+  firstId = firstId.replace("flipp", "flippp")
+  secondId = secondId.replace("flipp", "flippp")
+  document.getElementById(firstId).style.backgroundColor = "#B6BAC1"
+  document.getElementById(secondId).style.backgroundColor = "#B6BAC1"
+  document.getElementById(firstId).style.transform = "rotateY(0deg)"
+  document.getElementById(secondId).style.transform = "rotateY(0deg)"
+  firstId = firstId.replace("flippp", "flip")
+  secondId = secondId.replace("flippp", "flip")
+  document.getElementById(firstId).removeProperty("transition");
+  document.getElementById(seconId).removeProperty("transition");
+  document.getElementById(firstId).style.pointerEvents = "none"
+  document.getElementById(secondId).style.pointerEvents = "none"
+  firstId = "";
+  secondId = "";
+  firstCard = "";
+  secondCard = "";
+  pairsFound++
 }
+function findPairs() {
+    if (firstCard == secondCard) {
+      changeSides()
+     }
+    
+    }
 var seconds = 0;
 var minutes = 0;
 function getTime() {
