@@ -1,4 +1,8 @@
+var signhs;
+var shuffledArray;
 window.onload = function() {
+    signs = ["😊","😂","🤣","😍","😉","😎","😢","😁","🥰","😘","🤩","😮","😴","😜","😕"]
+    shuffledArray = signs.sort((a, b) => 0.5 - Math.random());  
     makeCards()
     var card = document.getElementById('flip1');
     checkCards(card)
@@ -62,13 +66,15 @@ window.onload = function() {
     checkCards(card30)
   };
 setInterval(getTime,1000)
+var wannaFlip = false;
 function checkCards(num) {
+    checkWinner()
     num.addEventListener('click', function() {
         num.classList.toggle('flipped');
         setTimeout(function() {
           num.classList.remove('flipped');
         }, 5000); // 5000 milliseconds = 5 seconds
-      });
+})
 }
 var numCount = 0;
 var numClicked = 1;
@@ -81,7 +87,7 @@ var time = 0;
 var signs = ["😊","😂","🤣","😍","😉","😎","😢","😁","🥰","😘","🤩","😮","😴","😜","😕"]
 
 function makeCards() {
-    var dupSigns = signs.concat(signs)
+    var dupSigns = shuffledArray.concat(shuffledArray)
     for (var i = 0; i < dupSigns.length; i++) {
         var div = document.getElementById("card-container")
         var card = document.createElement('div');
@@ -119,8 +125,19 @@ function findPairs() {
     if (firstCard == secondCard) {
         // var toChange = document.getElementById(firstId);
         // toChange.classList.toggle('paused');
-        var cardElement = document.querySelector('.card.flipped');
-        cardElement.classList.add('paused');
+        var cardElement = document.querySelectorAll('.card.flipped');
+        console.log(firstId)
+        cardElement[0].classList.toggle('paused');
+        cardElement[0].classList.add('flipped');
+        setTimeout(function() {
+          cardElement[0].classList.toggle('flipped');
+        }, 5000);
+        // wannaFlip = true;
+        secondId = secondId.replace("picture", "flip")
+        var cardElement2 = document.getElementById(secondId)
+        cardElement2.classList.toggle('paused');
+        wannaFlip = true;
+        // Object.freeze(cardElement2)
         firstId = "";
         secondId = "";
         firstCard = "";
@@ -140,9 +157,12 @@ function getTime() {
   var finalTime = minutes + ':' + (seconds < 10 ? '0' : '')  + seconds;
   document.getElementById('countUp').innerHTML = finalTime;
 }
-if(pairsFound == 15) {
-  document.getElementById('title').innerHTML = "You Won! Congrats!"
+function checkWinner() {
+  if(pairsFound == 15) {
+    document.getElementById('title').innerHTML = "You Won! Congrats!"
+  }
 }
+
 function reset() {
   seconds = 0;
   minutes = 0;
