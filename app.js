@@ -1,9 +1,13 @@
-var signhs;
 var shuffledArray;
+var signs;
 window.onload = function() {
+  //creates the signs and symbols
     signs = ["😊","😂","🤣","😍","😉","😎","😢","😁","🥰","😘","🤩","😮","😴","😜","😕"]
+    //used to shuffle the array randomly by getting a random number each time
     shuffledArray = signs.sort((a, b) => 0.5 - Math.random());  
+    //function to make the cards itself
     makeCards()
+    //the following are event listners to watch when the card is clicked on
     var card = document.getElementById('flip1');
     checkCards(card)
     var card2 = document.getElementById('flip2');
@@ -65,11 +69,13 @@ window.onload = function() {
     var card30 = document.getElementById('flip29');
     checkCards(card30)
   };
-setInterval(getTime,1000)
-var wannaFlip = false;
+//sets the timer for it to run every second so it can update
+var timer = setInterval(getTime,1000)
+//sets the game winning solution every second to check
+setInterval(checkWinner,1000)
 var timeOut
 function checkCards(num) {
-    checkWinner()
+  //runs the code to flip the card
     flipOrNot(num)
 }
 function flipOrNot(value) {
@@ -77,7 +83,7 @@ function flipOrNot(value) {
     value.classList.toggle('flipped');
     timeOut = setTimeout(function() {
       value.classList.remove('flipped');
-    }, 7000); // 5000 milliseconds = 5 seconds
+    }, 1000); // 3000 milliseconds = 3 seconds
 })
 }
 var numCount = 0;
@@ -91,9 +97,12 @@ var time = 0;
 var signs = ["😊","😂","🤣","😍","😉","😎","😢","😁","🥰","😘","🤩","😮","😴","😜","😕"]
 
 function makeCards() {
+  //duplicates the array to make pairs and then later is distrubuted amongst the cards
     var dupSigns = shuffledArray.concat(shuffledArray)
     for (var i = 0; i < dupSigns.length; i++) {
+      //finds the div element that contains the grid
         var div = document.getElementById("card-container")
+      //creates a new div instead of what was previously found
         var card = document.createElement('div');
         card.className= "card"
         card.id = "flip" + [i];
@@ -107,22 +116,30 @@ function makeCards() {
     }
 }
 function getValue(num) {
+  //labels each card to check if they are similar.
     if (numClicked == 1) {
+      //gets the value of the card which is later compared
         firstCard = document.getElementById(num).innerHTML;
         firstId = document.getElementById(num).id
+        console.log(firstCard)
         numClicked++;
         numCount++;
+        //updates the amount of moves everytime
         document.getElementById('move').innerHTML = "Moves: " + numCount;
     }
     else if (numClicked == 2) {
+      //gets the value of the second card that is clicked
         secondCard = document.getElementById(num).innerHTML;
         numClicked = 1;
+        console.log(secondCard)
         secondId = document.getElementById(num).id
         numCount++
         document.getElementById('move').innerHTML = "Moves: " + numCount
+        //checks if the two selected cards are the same or not
         findPairs()
     }
 }
+//to make sure the card stays "flipped" over when they match
 function changeSides(){
   firstId = firstId.replace("picture", "flipp")
   secondId = secondId.replace("picture", "flipp")
@@ -134,12 +151,10 @@ function changeSides(){
   secondId = secondId.replace("flipp", "flippp")
   document.getElementById(firstId).style.backgroundColor = "#B6BAC1"
   document.getElementById(secondId).style.backgroundColor = "#B6BAC1"
-  document.getElementById(firstId).style.transform = "rotateY(0deg)"
-  document.getElementById(secondId).style.transform = "rotateY(0deg)"
+  document.getElementById(firstId).style.transform = "none"
+  document.getElementById(secondId).style.transform = "none"
   firstId = firstId.replace("flippp", "flip")
   secondId = secondId.replace("flippp", "flip")
-  document.getElementById(firstId).removeProperty("transition");
-  document.getElementById(seconId).removeProperty("transition");
   document.getElementById(firstId).style.pointerEvents = "none"
   document.getElementById(secondId).style.pointerEvents = "none"
   firstId = "";
@@ -147,47 +162,35 @@ function changeSides(){
   firstCard = "";
   secondCard = "";
   pairsFound++
+  console.log(pairsFound)
 }
 function findPairs() {
+  //checks if the cards are the same and then later runs the function to "flip" them
     if (firstCard == secondCard) {
+      console.log(firstCard)
+      console.log(secondCard)
       changeSides()
      }
-    
     }
 var seconds = 0;
 var minutes = 0;
+//function to keep track of the time
 function getTime() {
   seconds++;
+  //if the time is 60 seconds, it converts it into a minute
   if (seconds == 60) {
       seconds = 0;
       minutes++;
   }
+  //has a little if else statement by checking if the seconds is double digits or not, just for formatting.
   var finalTime = minutes + ':' + (seconds < 10 ? '0' : '')  + seconds;
   document.getElementById('countUp').innerHTML = finalTime;
 }
+//checks if there is a winner
 function checkWinner() {
-  if(pairsFound == 15) {
+  if(pairsFound >= 15) {
     document.getElementById('title').innerHTML = "You Won! Congrats!"
+    clearInterval(timer)
+    document.getElementById('score').innerHTML = "Score: " + (minutes < 1 ?  198 : (minutes * 138)) + seconds
   }
 }
-
-// function reset() {
-//   seconds = 0;
-//   minutes = 0;
-//   numCount = 0;
-//   numClicked = 1;
-//   firstCard = "";
-//   secondCard = "";
-//   firstId = "";
-//   secondId = "";
-//   pairsFound = 0;
-//   time = 0;
-//   document.getElementById('title').innerHTML = "Card Memory Game"
-//   document.getElementById("score").innerHTML = "Score: In Progress..."
-//   document.getElementById("move").innerHTML = "Moves: 0"
-//   document.getElementById("countUp").innerHTML = "0:00"
-//   // for (var i = 0; i < 30; i ++) {
-//   //   var numToChange = document.getElementById("flip${i}")
-//   //   numToChange.classList.toggle('flipped');
-//   // }
-// }

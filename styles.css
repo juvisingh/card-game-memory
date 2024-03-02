@@ -7,9 +7,13 @@
     grid-template-rows: [first] auto [second] auto [third] auto [fourth] auto [fifth] auto [end];
   }
 
+@font-face {
+  font-family: myFont;
+  src: url(./IndieFlower-Regular.ttf);
+}
 .card {
-  width: 177px;
-  height: 107px;
+  width: 173px;
+  height: 102px;
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.5s;
