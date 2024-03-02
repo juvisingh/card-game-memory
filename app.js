@@ -67,13 +67,17 @@ window.onload = function() {
   };
 setInterval(getTime,1000)
 var wannaFlip = false;
+var timeOut
 function checkCards(num) {
     checkWinner()
-    num.addEventListener('click', function() {
-        num.classList.toggle('flipped');
-        setTimeout(function() {
-          num.classList.remove('flipped');
-        }, 5000); // 5000 milliseconds = 5 seconds
+    flipOrNot(num)
+}
+function flipOrNot(value) {
+  value.addEventListener('click', function() {
+    value.classList.toggle('flipped');
+    timeOut = setTimeout(function() {
+      value.classList.remove('flipped');
+    }, 5000); // 5000 milliseconds = 5 seconds
 })
 }
 var numCount = 0;
@@ -94,7 +98,7 @@ function makeCards() {
         card.className= "card"
         card.id = "flip" + [i];
         card.innerHTML = `<div class="card-face card-front" onClick = "getValue('picture${i}')">
-        <h1><img src="./logo.png" style="width: 50%; height:50%"></h1>
+        <h1 id='flipp${i}'><img src="./logo.png" style="width: 50%; height:50%"></h1>
       </div>
       <div class="card-face card-back">
         <h1 id = "picture${i}">${dupSigns[i]}</h1>
@@ -125,19 +129,21 @@ function findPairs() {
     if (firstCard == secondCard) {
         // var toChange = document.getElementById(firstId);
         // toChange.classList.toggle('paused');
-        var cardElement = document.querySelectorAll('.card.flipped');
-        console.log(firstId)
-        cardElement[0].classList.toggle('paused');
-        cardElement[0].classList.add('flipped');
-        setTimeout(function() {
-          cardElement[0].classList.toggle('flipped');
-        }, 5000);
-        // wannaFlip = true;
+        firstId = firstId.replace("picture", "flipp")
+        // console.log(firstId)
+        secondId = secondId.replace("picture", "flipp")
+        // var cardElement2 = document.getElementById(secondId)
+        // console.log(sec)
+        // cardElement2.classList.remove = 'card-back';
+        // cardElement2.classList.add = "card-front";
+        document.getElementById(firstId).innerHTML = firstCard
+        document.getElementById(secondId).innerHTML = secondCard
+        document.getElementById(firstId).style.backgroundColor = "#B6BAC1"
+        document.getElementById(secondId).style.backgroundColor = "#B6BAC1"
+        firstId = firstId.replace("picture", "flip")
         secondId = secondId.replace("picture", "flip")
-        var cardElement2 = document.getElementById(secondId)
-        cardElement2.classList.toggle('paused');
-        wannaFlip = true;
-        // Object.freeze(cardElement2)
+        document.getElementById(firstId).style.backgroundColor = "#B6BAC1"
+        document.getElementById(secondId).style.backgroundColor = "#B6BAC1"
         firstId = "";
         secondId = "";
         firstCard = "";
@@ -163,23 +169,23 @@ function checkWinner() {
   }
 }
 
-function reset() {
-  seconds = 0;
-  minutes = 0;
-  numCount = 0;
-  numClicked = 1;
-  firstCard = "";
-  secondCard = "";
-  firstId = "";
-  secondId = "";
-  pairsFound = 0;
-  time = 0;
-  document.getElementById('title').innerHTML = "Card Memory Game"
-  document.getElementById("score").innerHTML = "Score: In Progress..."
-  document.getElementById("move").innerHTML = "Moves: 0"
-  document.getElementById("countUp").innerHTML = "0:00"
-  // for (var i = 0; i < 30; i ++) {
-  //   var numToChange = document.getElementById("flip${i}")
-  //   numToChange.classList.toggle('flipped');
-  // }
-}
+// function reset() {
+//   seconds = 0;
+//   minutes = 0;
+//   numCount = 0;
+//   numClicked = 1;
+//   firstCard = "";
+//   secondCard = "";
+//   firstId = "";
+//   secondId = "";
+//   pairsFound = 0;
+//   time = 0;
+//   document.getElementById('title').innerHTML = "Card Memory Game"
+//   document.getElementById("score").innerHTML = "Score: In Progress..."
+//   document.getElementById("move").innerHTML = "Moves: 0"
+//   document.getElementById("countUp").innerHTML = "0:00"
+//   // for (var i = 0; i < 30; i ++) {
+//   //   var numToChange = document.getElementById("flip${i}")
+//   //   numToChange.classList.toggle('flipped');
+//   // }
+// }
